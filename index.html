@@ -1,7 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Million Home Kerala - Pixel Canvas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a00e0;
+            --secondary: #8e2de2;
+            --accent: #ff00cc;
+            --dark: #121212;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --whatsapp: #25D366;
+            --pixel-bg: rgba(30, 30, 30, 0.95);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .security-alert {
+            background: rgba(220, 53, 69, 0.2);
+            border: 1px solid var(--danger);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px auto;
+            max-width: 1200px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+        
+        header {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(142, 45, 226, 0.3);
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+        
+        .tagline {
+            text-align: center;
+            flex: 1;
+            padding: 0 20px;
+        }
+        
+        .tagline p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: #c0c0c0;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 25px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-box {
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(255, 0, 204, 0.5);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        
+        .canvas-container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .canvas-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .canvas-title h2 {
+            font-size: 1.8rem;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .canvas-title .controls {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(142, 45, 226, 0.4);
         }
         
         .btn:active {
@@ -542,47 +753,7 @@
             </div>
             
             <div class="sidebar">
-                <div class="card">
-                    <h3><i class="fas fa-cart-plus"></i> Purchase Pixels</h3>
-                    <form class="purchase-form" id="purchaseForm">
-                        <div class="form-group">
-                            <label for="pixelSize">Pixel Size</label>
-                            <select class="form-control" id="pixelSize">
-                                <option value="10x10">10x10 - ₹100</option>
-                                <option value="20x20">20x20 - ₹350</option>
-                                <option value="50x50">50x50 - ₹2,000</option>
-                                <option value="100x100">100x100 - ₹7,500</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="pixelLocation">Pixel Location (x,y)</label>
-                            <input type="text" class="form-control" id="pixelLocation" placeholder="e.g., 250,420">
-                        </div>
-                        <div class="form-group">
-                            <label for="ownerName">Your Name/Company</label>
-                            <input type="text" class="form-control" id="ownerName" placeholder="Enter your name or company">
-                        </div>
-                        <div class="form-group">
-                            <label for="websiteUrl">Website URL</label>
-                            <input type="url" class="form-control" id="websiteUrl" placeholder="https://yourwebsite.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="pixelImage">Upload Image (Optional)</label>
-                            <div class="file-upload">
-                                <input type="file" id="pixelImage" class="file-upload-input" accept="image/*">
-                                <label for="pixelImage" class="file-upload-label">
-                                    <i class="fas fa-cloud-upload-alt"></i> Choose an image file
-                                </label>
-                            </div>
-                            <div class="image-preview" id="imagePreview">
-                                <div class="placeholder">Preview will appear here</div>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-success" id="purchaseBtn">
-                            <i class="fas fa-lock"></i> Purchase Pixel
-                        </button>
-                    </form>
-                </div>
+                
                 
                 <div class="card">
                     <h3><i class="fas fa-history"></i> Recent Purchases</h3>
